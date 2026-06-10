@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyderabad Heritage AI Guide</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="background-container">
+    <div class="background-image"></div>
+    <div class="background-overlay"></div>
+</div>
+
+<!-- MAIN APPLICATION -->
+<div class="app-container">
+
+    <!-- HEADER WITH LOGO AND TITLE -->
+    <header class="app-header">
+        <div class="header-wrapper">
+            <div class="logo-section">
+                <img src="{{ url_for('static', filename='images/hyd_logo.jpg') }}" alt="Hyderabad Logo" class="app-logo">
+            </div>
+            <div class="title-section">
+                <h1 class="app-title">Hyderabad Heritage AI Guide</h1>
+                <p class="app-subtitle">Ask anything about Hyderabad's history, food, culture and attractions.</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- CHAT PANEL -->
+    <div class="chat-panel">
+        
+        <!-- MESSAGES AREA -->
+        <div class="messages-area" id="messagesArea">
+
+            {% if chat_history %}
+                {% for item in chat_history %}
+
+                    <!-- USER MESSAGE -->
+                    <div class="message-wrapper user-wrapper">
+                        <div class="user-message-bubble">
+                            {{ item.user }}
+                        </div>
+                    </div>
+
+                    <!-- AI MESSAGE -->
+                    <div class="message-wrapper ai-wrapper">
+                        <!-- AUTO IMAGE DISPLAY -->
+                        <div class="message-image-container" id="img-{{ loop.index }}"></div>
+                        
+                        <div class="ai-message-bubble">
+                            {{ item.assistant }}
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <!-- WELCOME MESSAGE -->
+                <div class="welcome-container">
+                    <div class="welcome-icon">🏛️</div>
+                    <h2 class="welcome-title">Welcome to Hyderabad Heritage AI</h2>
+                    <p class="welcome-text">Ask me about Charminar, Golconda Fort, Hyderabad food, history, museums, travel itineraries and more!</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- INPUT FORM -->
+        <form method="POST" class="input-form" id="chatForm">
+            <div class="input-container">
+                <input
+                    type="text"
+                    name="query"
+                    placeholder="Ask anything about Hyderabad..."
+                    class="message-input"
+                    id="questionInput"
+                    required>
+                <button type="submit" class="send-btn" title="Send message">
+                    <span class="send-icon">→</span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+// IMAGE MAPPING FOR AUTO-DISPLAY
+const imageMap = {
+    'charminar': '{{ url_for("static", filename="images/charminar.jpg") }}',
+    'golconda': '{{ url_for("static", filename="images/golconda.jpg") }}',
+    'food': '{{ url_for("static", filename="images/biryani.jpg") }}',
+    'biryani': '{{ url_for("static", filename="images/biryani.jpg") }}',
+    'restaurant': '{{ url_for("static", filename="images/biryani.jpg") }}',
+    'eat': '{{ url_for("static", filename="images/biryani.jpg") }}'
+};
+
+// DISPLAY IMAGES BASED ON USER QUERY
+function displayRelevantImages() {
+    const userWrappers = document.querySelectorAll('.user-wrapper');
+    userWrappers.forEach((userWrapper, index) => {
+        const userText = userWrapper.innerText.toLowerCase();
+        const imageContainer = userWrapper.nextElementSibling?.querySelector('.message-image-container');
+        
+        if (imageContainer) {
+            for (const [keyword, imagePath] of Object.entries(imageMap)) {
+                if (userText.includes(keyword)) {
+                    imageContainer.innerHTML = `<img src="${imagePath}" alt="Related image" class="message-image">`;
+                    break;
+                }
+            }
+        }
+    });
+}
+
+// AUTO-SCROLL TO LATEST MESSAGE
+function scrollToBottom() {
+    const messagesArea = document.getElementById('messagesArea');
+    setTimeout(() => {
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+    }, 100);
+}
+
+// INITIALIZE ON PAGE LOAD
+document.addEventListener('DOMContentLoaded', function() {
+    displayRelevantImages();
+    scrollToBottom();
+
+    // FORM SUBMISSION - Allow normal form submission
+    // Form will POST to server and page will reload with new chat_history
+});
+
+
+</script>
+
+</body>
+</html>
