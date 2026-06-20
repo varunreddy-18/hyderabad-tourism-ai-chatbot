@@ -1,5 +1,5 @@
 from src.retrieval.retriever import Retriever
-from src.llm.groq_llm import GroqLLM
+from src.llm.langchain_llm import LangChainLLM
 
 from src.search.query_router import QueryRouter
 from src.search.web_search import WebSearch
@@ -12,7 +12,7 @@ class RAGPipeline:
         print("Initializing RAG Pipeline...")
 
         self.retriever = Retriever()
-        self.llm = GroqLLM()
+        self.llm = LangChainLLM()
 
         self.router = QueryRouter()
         self.web_search = WebSearch()
@@ -53,36 +53,35 @@ Content:
                 for result in web_results[:5]
             ])
 
-            prompt = f"""
-You are a Hyderabad Tourism Expert.
-
-Use BOTH sources:
-
-1. Hyderabad Tourism Guide
-2. Web Search Results
-
-GUIDE CONTEXT:
+            combined_context = f"""
+GUIDE INFORMATION:
 
 {rag_context}
 
 WEB SEARCH RESULTS:
 
 {web_context}
+"""
 
-QUESTION:
-{query}
+            answer = self.llm.generate(
+                context=combined_context,
+                query=query,
+                system_prompt="""
+You are a Hyderabad Tourism Expert.
+
+Use BOTH sources:
+
+1. Tourism Guide Context
+2. Web Search Results
 
 Rules:
 - Use guide information for history and culture.
-- Use web results for current recommendations.
+- Use web information for current recommendations.
 - Combine both naturally.
 - Be detailed and helpful.
 - Do not make up information.
-
-ANSWER:
 """
-
-            answer = self.llm.generate(prompt)
+            )
 
             pages = sorted(
                 list(
@@ -133,31 +132,23 @@ Content:
                 for result in web_results[:5]
             ])
 
-            prompt = f"""
+            answer = self.llm.generate(
+                context=web_context,
+                query=query,
+                system_prompt="""
 You are a Hyderabad Tourism Expert.
 
-Use ONLY the web search results below.
+Use ONLY the provided web search results.
 
 Rules:
 - Extract factual information only.
-- If multiple timings are found, mention both and state that sources differ.
-- Answer directly.
+- If multiple timings are found, mention both.
+- Mention ticket prices if available.
+- Mention location if available.
 - Keep answers concise.
-- Include ticket prices if available.
-- Include location if available.
 - Do not make up information.
-
-WEB SEARCH RESULTS:
-
-{web_context}
-
-QUESTION:
-{query}
-
-ANSWER:
 """
-
-            answer = self.llm.generate(prompt)
+            )
 
             return {
                 "answer": answer,
@@ -226,7 +217,10 @@ ANSWER:
                 for doc in docs
             ])
 
-            prompt = f"""
+            answer = self.llm.generate(
+                context=context,
+                query=query,
+                system_prompt="""
 You are an expert Hyderabad Tourism Guide.
 
 Use ONLY the information provided in the guide context.
@@ -238,21 +232,9 @@ Rules:
 - Mention location if available.
 - Mention special attractions if available.
 - Do NOT make up information.
-- If information is unavailable, say:
-
-"I could not find that information in the guide."
-
-CONTEXT:
-
-{context}
-
-QUESTION:
-{query}
-
-ANSWER:
+- If information is unavailable, clearly say so.
 """
-
-            answer = self.llm.generate(prompt)
+            )
 
             pages = sorted(
                 list(
