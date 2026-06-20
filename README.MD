@@ -1,22 +1,25 @@
-#  Hyderabad Tourism AI Chatbot
+# Hyderabad Tourism AI Chatbot
 
-An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (RAG)** and **Live Web Search** to provide accurate, context-aware, and up-to-date information about Hyderabad's history, attractions, food, culture, and travel planning.
-
----
-
-##  Features
-
-* Semantic search using FAISS and Sentence Transformers
-*  Live web search for current information
-*  Hybrid retrieval (Knowledge Base + Web Search)
-*  AI-generated responses using Llama 3.3 70B via Groq
-*  Hyderabad tourism, culture, food, and travel guidance
-*  Interactive Flask-based chat interface
-*  Dynamic landmark image support
+An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (RAG)**, **Live Web Search**, and **LangChain-powered orchestration** to provide accurate, context-aware, and up-to-date information about Hyderabad's history, attractions, food, culture, and travel planning.
 
 ---
 
-##  System Architecture
+## Features
+
+* 🔍 Semantic search using FAISS and Sentence Transformers
+* 🌐 Live web search for current information
+* 🔄 Hybrid retrieval (Knowledge Base + Web Search)
+* 🧠 Intelligent query routing (RAG / Web / Hybrid)
+* ⛓️ LangChain-powered prompt and LLM orchestration
+* 🤖 AI-generated responses using Llama 3.3 70B via Groq
+* 🏰 Hyderabad tourism, culture, food, and travel guidance
+* 💬 Interactive Flask-based chat interface
+* 🖼️ Dynamic landmark image support
+* 🐳 Docker containerization for deployment
+
+---
+
+## System Architecture
 
 ```text
                 👤 User
@@ -54,25 +57,26 @@ An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (
                │
                ▼
      ┌───────────────────┐
-     │  Groq Llama 3.3   │
-     │   Response Engine │
+     │ LangChain + Groq  │
+     │   Llama 3.3 70B   │
      └─────────┬─────────┘
                │
                ▼
          🤖 AI Response
 ```
 
-###  Workflow
+### Workflow
 
 * **RAG Mode** → Retrieves information from the Hyderabad tourism knowledge base using FAISS.
 * **Web Mode** → Fetches current information such as timings, restaurants, and travel updates.
 * **Hybrid Mode** → Combines both sources to provide richer and more accurate answers.
-* Retrieved information is transformed into context and passed to **Llama 3.3 via Groq**.
-* The generated response is returned through the chatbot interface.
+* Retrieved information is converted into structured context.
+* LangChain manages prompt construction and LLM interactions.
+* Llama 3.3 (via Groq) generates the final response.
 
 ---
 
-##  Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
 
@@ -92,8 +96,9 @@ An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (
 * Retrieval-Augmented Generation (RAG)
 * Semantic Search
 
-### LLM
+### LLM & Orchestration
 
+* LangChain
 * Groq API
 * Llama 3.3 70B Versatile
 
@@ -101,14 +106,19 @@ An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (
 
 * DuckDuckGo Search (DDGS)
 
+### Deployment
+
+* Docker
+
 ---
 
-##  Project Structure
+## Project Structure
 
 ```text
 hyderabad-tour-chatbot/
 │
 ├── app.py
+├── Dockerfile
 ├── requirements.txt
 │
 ├── app/
@@ -123,7 +133,8 @@ hyderabad-tour-chatbot/
 │   ├── rag/
 │   ├── retrieval/
 │   ├── llm/
-│   └── search/
+│   ├── search/
+│   └── utils/
 │
 └── data/
     └── vectorstore/
@@ -133,7 +144,7 @@ hyderabad-tour-chatbot/
 
 ---
 
-##  Example Queries
+## Example Queries
 
 ```text
 Tell me about Golconda Fort
@@ -151,7 +162,7 @@ Best places to visit in Hyderabad with family
 
 ---
 
-##  Local Setup
+## Local Setup
 
 ### Clone Repository
 
@@ -208,7 +219,23 @@ http://localhost:5000
 
 ---
 
-##  Future Improvements
+## 🐳 Docker Setup
+
+### Build Image
+
+```bash
+docker build -t hyderabad-tour-chatbot .
+```
+
+### Run Container
+
+```bash
+docker run -p 5000:5000 hyderabad-tour-chatbot
+```
+
+---
+
+## Future Improvements
 
 * Conversation memory
 * Google Maps integration
@@ -220,15 +247,19 @@ http://localhost:5000
 
 ---
 
-##  Key Concepts Demonstrated
+## Key Concepts Demonstrated
 
 * Retrieval-Augmented Generation (RAG)
 * Vector Databases (FAISS)
 * Semantic Search
+* LangChain
 * Prompt Engineering
 * Hybrid Retrieval Systems
 * LLM Integration
+* Query Routing
+* Docker Containerization
 * Flask Application Development
 * AI System Design
 
+---
 
