@@ -1,13 +1,16 @@
+import logging
 import os
 
 from dotenv import load_dotenv
 
 from langchain_groq import ChatGroq
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 
 
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 class LangChainLLM:
@@ -36,24 +39,22 @@ Answer only from the provided context.
 Do not make up information.
 """
 
-        prompt = ChatPromptTemplate.from_template(
-            """
-{system_prompt}
-
-CONTEXT:
-{context}
-
-QUESTION:
-{query}
-"""
-        )
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", "{system_prompt}"),
+            ("human", "CONTEXT:\n{context}\n\nQUESTION:\n{query}")
+        ])
 
         chain = prompt | self.llm | self.parser
 
-        return chain.invoke(
-            {
-                "system_prompt": system_prompt,
-                "context": context,
-                "query": query
-            }
+        payload = {
+            "system_prompt": system_prompt,
+            "context": context or "",
+            "query": query or ""
+        }
+
+        logger.debug(
+            "Invoking LLM with context length=%s",
+            len(payload["context"])
         )
+
+        return chain.invoke(payload)
