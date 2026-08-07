@@ -1,8 +1,13 @@
-from src.retrieval.retriever import Retriever
+import logging
+
 from src.llm.langchain_llm import LangChainLLM
+from src.retrieval.retriever import Retriever
 
 from src.search.query_router import QueryRouter
 from src.search.web_search import WebSearch
+
+
+logger = logging.getLogger(__name__)
 
 
 class RAGPipeline:
@@ -19,9 +24,40 @@ class RAGPipeline:
 
         print("RAG Pipeline Ready ✅")
 
+    def _is_greeting(self, query):
+
+        if not query:
+            return False
+
+        normalized = query.strip().lower()
+
+        return any(
+            phrase in normalized
+            for phrase in [
+                "hi",
+                "hello",
+                "hey",
+                "good morning",
+                "good afternoon",
+                "good evening",
+                "thanks",
+                "thank you",
+                "greetings"
+            ]
+        )
+
     def ask(self, query):
 
+        if self._is_greeting(query):
+            logger.debug("Greeting detected; skipping retrieval")
+            return {
+                "answer": "Hello! I can help you explore Hyderabad's attractions, food, and travel tips. Ask me about places, timings, food, or itineraries.",
+                "sources": []
+            }
+
         route = self.router.get_route(query)
+
+        logger.debug("Route selected: %s", route)
 
         print("\n" + "=" * 80)
         print("ROUTE:", route.upper())
@@ -42,6 +78,11 @@ class RAGPipeline:
             ])
 
             web_results = self.web_search.search(query)
+            logger.debug(
+                "Hybrid route: rag_docs=%s web_results=%s",
+                len(docs),
+                len(web_results)
+            )
 
             web_context = "\n\n".join([
                 f"""
@@ -52,6 +93,9 @@ Content:
 """
                 for result in web_results[:5]
             ])
+
+            if not web_context:
+                web_context = "No current web results were found."
 
             combined_context = f"""
 GUIDE INFORMATION:
@@ -69,17 +113,14 @@ WEB SEARCH RESULTS:
                 system_prompt="""
 You are a Hyderabad Tourism Expert.
 
-Use BOTH sources:
-
-1. Tourism Guide Context
-2. Web Search Results
+Use the guide context for history, culture, and general Hyderabad tourism facts.
+Use web results only when they provide current or specific recommendations.
 
 Rules:
-- Use guide information for history and culture.
-- Use web information for current recommendations.
-- Combine both naturally.
+- Combine both sources naturally.
+- If web results are unavailable, say so clearly instead of guessing.
+- Do not fabricate live facts such as current opening status, prices, or availability unless they are explicitly present in the provided results.
 - Be detailed and helpful.
-- Do not make up information.
 """
             )
 
@@ -110,6 +151,7 @@ Rules:
         elif route == "web":
 
             web_results = self.web_search.search(query)
+            logger.debug("Web route: web_results=%s", len(web_results))
 
             print("\nWEB RESULTS")
             print("=" * 80)
@@ -121,6 +163,12 @@ Rules:
                 print("URL:", result["url"])
                 print("-" * 50)
                 print(result["body"])
+
+            if not web_results:
+                return {
+                    "answer": "I couldn't find current web information for that query. I can still help with Hyderabad tourism suggestions from the guide context if you ask about attractions, history, or general travel advice.",
+                    "sources": []
+                }
 
             web_context = "\n\n".join([
                 f"""
@@ -142,11 +190,10 @@ Use ONLY the provided web search results.
 
 Rules:
 - Extract factual information only.
-- If multiple timings are found, mention both.
-- Mention ticket prices if available.
-- Mention location if available.
+- For general recommendations, offer suggestions conservatively and clearly label them as general advice when the results do not provide verified live details.
+- Do not fabricate live facts such as current opening status, prices, or availability unless they are explicitly present in the provided results.
+- If the results are limited or do not include enough detail, say so clearly.
 - Keep answers concise.
-- Do not make up information.
 """
             )
 
@@ -164,39 +211,7 @@ Rules:
         else:
 
             docs = self.retriever.search(query, top_k=10)
-
-            query_words = query.lower().split()
-
-            filtered_docs = []
-
-            for doc in docs:
-
-                text = doc["text"].lower()
-
-                score = 0
-
-                for word in query_words:
-
-                    if word in text:
-                        score += 1
-
-                if score > 0:
-                    filtered_docs.append((score, doc))
-
-            if filtered_docs:
-
-                filtered_docs.sort(
-                    reverse=True,
-                    key=lambda x: x[0]
-                )
-
-                docs = [
-                    item[1]
-                    for item in filtered_docs[:5]
-                ]
-
-            else:
-                docs = docs[:5]
+            logger.debug("RAG route: docs=%s", len(docs))
 
             print("\n" + "=" * 80)
             print("RETRIEVED DOCUMENTS")

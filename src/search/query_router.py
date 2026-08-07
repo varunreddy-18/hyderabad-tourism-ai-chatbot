@@ -1,3 +1,6 @@
+import re
+
+
 WEB_KEYWORDS = [
     "today",
     "latest",
@@ -26,7 +29,10 @@ WEB_KEYWORDS = [
     "festival",
     "metro",
     "bus",
-    "route"
+    "route",
+    "recommend",
+    "recommendation",
+    "recommendations"
 ]
 
 HYBRID_KEYWORDS = [
@@ -36,15 +42,28 @@ HYBRID_KEYWORDS = [
     "trip",
     "near",
     "around",
-    "best places"
+    "best places",
+    "best",
+    "suggest",
+    "suggestion"
 ]
+
+GREETINGS = re.compile(
+    r"\b(hi|hello|hey|good morning|good afternoon|good evening|thanks|thank you|greetings)\b"
+)
 
 
 class QueryRouter:
 
     def get_route(self, query):
 
-        query = query.lower()
+        query = (query or "").strip().lower()
+
+        if not query:
+            return "rag"
+
+        if self._is_greeting(query):
+            return "rag"
 
         web = any(
             keyword in query
@@ -64,3 +83,6 @@ class QueryRouter:
 
         else:
             return "rag"
+
+    def _is_greeting(self, query):
+        return bool(GREETINGS.search(query))
