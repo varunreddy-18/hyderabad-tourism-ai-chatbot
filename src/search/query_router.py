@@ -1,3 +1,6 @@
+import re
+
+
 WEB_KEYWORDS = [
     "today",
     "latest",
@@ -26,7 +29,10 @@ WEB_KEYWORDS = [
     "festival",
     "metro",
     "bus",
-    "route"
+    "route",
+    "recommend",
+    "recommendation",
+    "recommendations"
 ]
 
 # Keywords that indicate a blended answer is useful (guide + web)
@@ -52,16 +58,28 @@ RECOMMENDATION_KEYWORDS = [
     "popular",
     "must try",
     "must-try",
-    "where to eat"
+    "where to eat",
+    "suggest",
+    "suggestion"
 ]
+
+GREETINGS = re.compile(
+    r"\b(hi|hello|hey|good morning|good afternoon|good evening|thanks|thank you|greetings)\b"
+)
 
 
 class QueryRouter:
 
     def get_route(self, query):
 
-        # normalize
-        q = query.lower()
+        # normalize and guard
+        q = (query or "").strip().lower()
+
+        if not q:
+            return "rag"
+
+        if self._is_greeting(q):
+            return "rag"
 
         has_web = any(keyword in q for keyword in WEB_KEYWORDS)
         has_hybrid = any(keyword in q for keyword in HYBRID_KEYWORDS)
@@ -87,3 +105,6 @@ class QueryRouter:
 
         # fallback to rag (guide-only)
         return "rag"
+
+    def _is_greeting(self, query):
+        return bool(GREETINGS.search(query))

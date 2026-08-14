@@ -1,8 +1,13 @@
+import logging
+
+from src.llm.langchain_llm import LangChainLLM
 from src.retrieval.retriever import Retriever
-from src.llm.groq_llm import GroqLLM
 
 from src.search.query_router import QueryRouter
 from src.search.web_search import WebSearch
+
+
+logger = logging.getLogger(__name__)
 
 
 class RAGPipeline:
@@ -12,7 +17,7 @@ class RAGPipeline:
         print("Initializing RAG Pipeline...")
 
         self.retriever = Retriever()
-        self.llm = GroqLLM()
+        self.llm = LangChainLLM()
 
         self.router = QueryRouter()
         self.web_search = WebSearch()
@@ -24,9 +29,40 @@ class RAGPipeline:
 
         print("RAG Pipeline Ready ✅")
 
+    def _is_greeting(self, query):
+
+        if not query:
+            return False
+
+        normalized = query.strip().lower()
+
+        return any(
+            phrase in normalized
+            for phrase in [
+                "hi",
+                "hello",
+                "hey",
+                "good morning",
+                "good afternoon",
+                "good evening",
+                "thanks",
+                "thank you",
+                "greetings"
+            ]
+        )
+
     def ask(self, query):
 
+        if self._is_greeting(query):
+            logger.debug("Greeting detected; skipping retrieval")
+            return {
+                "answer": "Hello! I can help you explore Hyderabad's attractions, food, and travel tips. Ask me about places, timings, food, or itineraries.",
+                "sources": []
+            }
+
         route = self.router.get_route(query)
+
+        logger.debug("Route selected: %s", route)
 
         print("\n" + "=" * 80)
         print("ROUTE:", route.upper())
@@ -39,9 +75,8 @@ class RAGPipeline:
 
             print("\nHYBRID MODE ACTIVATED")
 
+            # Retrieve guide docs and log diagnostics
             docs = self.retriever.search(query, top_k=5)
-
-            # diagnostic logging for RAG results
             print("RAG doc count:", len(docs))
             for i, d in enumerate(docs, start=1):
                 print(f"RAG {i}: page={d.get('page')} rank={d.get('rank')} dist={d.get('distance'):.4f} sim={d.get('similarity'):.4f}")
@@ -53,17 +88,22 @@ class RAGPipeline:
 
             rag_context = "\n\n".join([d["text"] for d in docs]) if include_rag else ""
 
+            # Web search (web_search.search may return a dict with search_query + results)
             web_out = self.web_search.search(query)
-            web_results = web_out.get('results', []) if isinstance(web_out, dict) else web_out
-            ddgs_query = web_out.get('search_query', '') if isinstance(web_out, dict) else ''
+            if isinstance(web_out, dict):
+                ddgs_query = web_out.get('search_query', '')
+                web_results = web_out.get('results', [])
+            else:
+                ddgs_query = ''
+                web_results = web_out or []
 
-            # Diagnostic logging required by the fix
+            # Diagnostic logging
             print("SEARCH QUERY:", ddgs_query or query)
             print("WEB RESULT COUNT:", len(web_results))
             print("RESULT TITLES:", [r.get('title') for r in web_results[:5]])
             print("RESULT URLS:", [r.get('url') for r in web_results[:5]])
 
-            # Build web context with explicit evidence type labels (snippet vs page) so LLM doesn't treat snippets as verified facts
+            # Build web context with explicit evidence type labels
             web_context_pieces = []
             for result in web_results[:5]:
                 web_context_pieces.append(f"""
@@ -129,7 +169,7 @@ Rules:
             sources = []
             if include_rag:
                 sources += [f"Guide Page {page}" for page in pages]
-            sources += [result["url"] for result in web_results[:3] if result.get('url')]
+            sources += [result.get("url") for result in web_results[:3] if result.get('url')]
 
             # If both sources empty, abstain
             if not sources:
@@ -149,8 +189,12 @@ Rules:
         elif route == "web":
 
             web_out = self.web_search.search(query)
-            web_results = web_out.get('results', []) if isinstance(web_out, dict) else web_out
-            ddgs_query = web_out.get('search_query', '') if isinstance(web_out, dict) else ''
+            if isinstance(web_out, dict):
+                ddgs_query = web_out.get('search_query', '')
+                web_results = web_out.get('results', [])
+            else:
+                ddgs_query = ''
+                web_results = web_out or []
 
             print("\nWEB RESULTS")
             print("=" * 80)
@@ -303,11 +347,15 @@ QUESTION:
 ANSWER:
 """
 
-            answer = self.llm.generate(prompt)
+            answer = self.llm.generate(
+                context=context,
+                query=query,
+                system_prompt=prompt
+            )
 
             pages = sorted(list(set(doc["page"] for doc in docs)))
 
             return {
                 "answer": answer,
                 "sources": [f"Guide Page {page}" for page in pages]
-            }
+                            }
