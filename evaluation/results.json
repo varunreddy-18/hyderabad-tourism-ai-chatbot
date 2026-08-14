@@ -1,0 +1,752 @@
+{
+  "total_questions": 30,
+  "dataset_breakdown": {
+    "answerable": 20,
+    "multi_context": 5,
+    "unsupported": 5
+  },
+  "retrieval": {
+    "total_evaluated_questions": 20,
+    "hits_at_k": {
+      "3": 13,
+      "5": 15
+    },
+    "recall_at_k": {
+      "Recall@3": 0.65,
+      "Recall@5": 0.75
+    },
+    "retrieval_success_rate": 0.75,
+    "per_question": [
+      {
+        "question": "Tell me about Charminar",
+        "evaluated": true,
+        "retrieved": [
+          13,
+          28,
+          17,
+          15,
+          27
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "What are the Charminar timings",
+        "evaluated": true,
+        "retrieved": [
+          29,
+          14,
+          29,
+          30,
+          30
+        ],
+        "should_abstain": false,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "History of Golconda Fort",
+        "evaluated": true,
+        "retrieved": [
+          26,
+          9,
+          9,
+          10,
+          26
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "When is Ramoji Film City open",
+        "evaluated": true,
+        "retrieved": [
+          27,
+          14,
+          14,
+          14,
+          27
+        ],
+        "should_abstain": false,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "What is the entry fee for Salar Jung Museum",
+        "evaluated": true,
+        "retrieved": [
+          24,
+          25,
+          24,
+          18,
+          24
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "Describe Chowmahalla Palace",
+        "evaluated": true,
+        "retrieved": [
+          32,
+          31,
+          31,
+          26,
+          17
+        ],
+        "should_abstain": false,
+        "hit_at_3": false,
+        "hit_at_5": true
+      },
+      {
+        "question": "What can I buy at Laad Bazaar",
+        "evaluated": true,
+        "retrieved": [
+          16,
+          15,
+          16,
+          27,
+          16
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "Tell me about Nehru Zoological Park",
+        "evaluated": true,
+        "retrieved": [
+          19,
+          19,
+          20,
+          11,
+          27
+        ],
+        "should_abstain": false,
+        "hit_at_3": false,
+        "hit_at_5": true
+      },
+      {
+        "question": "What are the highlights of Birla Mandir",
+        "evaluated": false,
+        "retrieved": [],
+        "should_abstain": false,
+        "note": "Skipped (no relevant page and not an abstain question)"
+      },
+      {
+        "question": "What is special about the Qutb Shahi Tombs",
+        "evaluated": false,
+        "retrieved": [],
+        "should_abstain": false,
+        "note": "Skipped (no relevant page and not an abstain question)"
+      },
+      {
+        "question": "Where is Moazzam Jahi Market and what to buy",
+        "evaluated": true,
+        "retrieved": [
+          15,
+          16,
+          16,
+          16,
+          28
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "What are popular dishes in Hyderabad",
+        "evaluated": false,
+        "retrieved": [],
+        "should_abstain": false,
+        "note": "Skipped (no relevant page and not an abstain question)"
+      },
+      {
+        "question": "Tell me about Falaknuma Palace history",
+        "evaluated": false,
+        "retrieved": [],
+        "should_abstain": false,
+        "note": "Skipped (no relevant page and not an abstain question)"
+      },
+      {
+        "question": "What is the best time to visit Hyderabad's monuments",
+        "evaluated": false,
+        "retrieved": [],
+        "should_abstain": false,
+        "note": "Skipped (no relevant page and not an abstain question)"
+      },
+      {
+        "question": "Where is the Necklace Road and what to do there",
+        "evaluated": true,
+        "retrieved": [
+          21,
+          12,
+          27,
+          27,
+          25
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "What are the visiting hours for Birla Planetarium",
+        "evaluated": true,
+        "retrieved": [
+          14,
+          28,
+          14,
+          27,
+          28
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "What is the significance of Makkah Masjid",
+        "evaluated": true,
+        "retrieved": [
+          17,
+          17,
+          17,
+          32,
+          30
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "Tell me about Laad Bazaar shopping timings",
+        "evaluated": true,
+        "retrieved": [
+          15,
+          27,
+          16,
+          29,
+          16
+        ],
+        "should_abstain": false,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "What is the story behind the Nizam's Museum",
+        "evaluated": true,
+        "retrieved": [
+          24,
+          25,
+          24,
+          18,
+          32
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "What is the Sultan Bazaar known for",
+        "evaluated": true,
+        "retrieved": [
+          17,
+          15,
+          27,
+          16,
+          28
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "Plan a one-day itinerary including Charminar and Golconda Fort",
+        "evaluated": true,
+        "retrieved": [
+          26,
+          26,
+          10,
+          9,
+          9
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "Where to eat near Charminar and Necklace Road",
+        "evaluated": true,
+        "retrieved": [
+          28,
+          21,
+          28,
+          28,
+          27
+        ],
+        "should_abstain": false,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "Compare timings for Charminar and Birla Mandir",
+        "evaluated": true,
+        "retrieved": [
+          13,
+          28,
+          14,
+          30,
+          30
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "Suggest an evening plan combining Hussain Sagar and Necklace Road",
+        "evaluated": true,
+        "retrieved": [
+          21,
+          12,
+          27,
+          28,
+          27
+        ],
+        "should_abstain": false,
+        "hit_at_3": true,
+        "hit_at_5": true
+      },
+      {
+        "question": "Three cultural sites to visit in Hyderabad: history and timings",
+        "evaluated": true,
+        "retrieved": [
+          35,
+          29,
+          24,
+          25,
+          25
+        ],
+        "should_abstain": false,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "Is Charminar open right now?",
+        "evaluated": true,
+        "retrieved": [
+          14,
+          15,
+          28,
+          16,
+          14
+        ],
+        "should_abstain": true,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "How many visitors will Charminar have tomorrow?",
+        "evaluated": true,
+        "retrieved": [
+          14,
+          14,
+          14,
+          28,
+          30
+        ],
+        "should_abstain": true,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "Give me the personal phone number of a local tour guide near Charminar",
+        "evaluated": true,
+        "retrieved": [
+          28,
+          14,
+          27,
+          35,
+          21
+        ],
+        "should_abstain": true,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "What will be the menu price at Shadab restaurant next month?",
+        "evaluated": true,
+        "retrieved": [
+          16,
+          16,
+          28,
+          14,
+          28
+        ],
+        "should_abstain": true,
+        "hit_at_3": false,
+        "hit_at_5": false
+      },
+      {
+        "question": "Are there confirmed tickets left for the private event at Falaknuma Palace next weekend?",
+        "evaluated": true,
+        "retrieved": [
+          14,
+          16,
+          14,
+          14,
+          18
+        ],
+        "should_abstain": true,
+        "hit_at_3": false,
+        "hit_at_5": false
+      }
+    ]
+  },
+  "answers": {
+    "per_question": [
+      {
+        "question": "Tell me about Charminar",
+        "should_abstain": false,
+        "answer": "Charminar is a historic monument located at the heart of Hyderabad, built in 1591 by Muhammad Quli Qutb Shah. The name 'Charminar' translates to 'four minarets' in Urdu. It is situated near the Mecca Masjid, on Charminar Rd, Charminar, Ghansi Bazaar. The opening hours for visiting Charminar are daily, but the exact timings are not specified in the guide.",
+        "sources": [
+          "Guide Page 13",
+          "Guide Page 15",
+          "Guide Page 17",
+          "Guide Page 27",
+          "Guide Page 31"
+        ]
+      },
+      {
+        "question": "What are the Charminar timings",
+        "should_abstain": false,
+        "answer": "Charminar timings are from 09:00 am to 05:30 pm and also reported as 09:30 am to 05:30 pm, sources differ.",
+        "sources": [
+          "https://www.hyderabadtourism.travel/charminar-hyderabad",
+          "https://www.hyderabadtourism.in/charminar",
+          "https://hyderabadtourism.co.in/charminar-hyderabad/"
+        ]
+      },
+      {
+        "question": "History of Golconda Fort",
+        "should_abstain": false,
+        "answer": "Golconda Fort was originally a mud structure called 'Mankal' built by the Kakatiya rulers of Warangal in the 12th century. It was later fortified between the 14th-17th century CE under the Bahmani reign and the Qutub Shahi dynasty. The term 'Golla-Konda' roughly translates to 'Shepherd Hill' in Telugu, as local folklore suggests that the hill was discovered by a shepherd who came across an idol on the rocky hill. The Fort changed hands over time, from the Kakatiyas to the Musunuri Dynasty, then to the Bahmani Sultanate, and finally to the Qutb Shahi dynasty when Quli Qutb Shah declared his independence from the Mughals in 1518 CE.",
+        "sources": [
+          "Guide Page 9",
+          "Guide Page 10",
+          "Guide Page 26"
+        ]
+      },
+      {
+        "question": "When is Ramoji Film City open",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 14",
+          "Guide Page 27"
+        ]
+      },
+      {
+        "question": "What is the entry fee for Salar Jung Museum",
+        "should_abstain": false,
+        "answer": "The entry fee for Salar Jung Museum is: \n- Rs 50 for Indian adults \n- Rs 20 for Indian children above 5 years of age\n- Free for students and children below 5 years of age\n- Rs 1000 for foreign visitors.",
+        "sources": [
+          "https://www.hyderabadtourism.travel/salar-jung-museum-hyderabad",
+          "https://salarjungmuseum.in/Hours-and-admission.html",
+          "https://hyderabadtourism.co.in/salar-jung-museum-hyderabad/"
+        ]
+      },
+      {
+        "question": "Describe Chowmahalla Palace",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 26"
+        ]
+      },
+      {
+        "question": "What can I buy at Laad Bazaar",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 15",
+          "Guide Page 16",
+          "Guide Page 27"
+        ]
+      },
+      {
+        "question": "Tell me about Nehru Zoological Park",
+        "should_abstain": false,
+        "answer": "The Nehru Zoological Park is one of the largest zoos in India, spread over a huge campus. It is located in Bahadurpura, off National Highway, and was first opened to the public in October 1963. The zoo is home to animals of various species and has several specialty zones like the Walk-through Aviary, the Reptile House, the Sparrow House, the Bear Safari, the Rhinoceros Park, and the Deer Park. It also features a Lion Safari Park, a Nocturnal Animals House, and a Dinosaur Park, which is especially popular with kids. The zoo has introduced facilities like bicycles and battery-operated golf carts to make traveling within the premises easier. The zoo is open daily, but the exact timings are not specified in the guide.",
+        "sources": [
+          "Guide Page 11",
+          "Guide Page 19",
+          "Guide Page 20"
+        ]
+      },
+      {
+        "question": "What are the highlights of Birla Mandir",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide. The guide only mentions that the Birla Mandir, built in white marble, is located close to Hussain Sagar lake, but does not provide any further information about its highlights.",
+        "sources": [
+          "Guide Page 11",
+          "Guide Page 25",
+          "Guide Page 27",
+          "Guide Page 28",
+          "Guide Page 32"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding"
+      },
+      {
+        "question": "What is special about the Qutb Shahi Tombs",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide. The guide mentions the Qutb Shahi Tombs as a starting location, but it does not provide information about what is special about the tombs themselves. It does provide information about the Qutb Shahi dynasty and its history, but not specifically about the tombs.",
+        "sources": [
+          "Guide Page 17",
+          "Guide Page 26",
+          "Guide Page 31"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding"
+      },
+      {
+        "question": "Where is Moazzam Jahi Market and what to buy",
+        "should_abstain": false,
+        "answer": "Moazzam Jahi Market is located 3 kilometers from Charminar in Hyderabad. You can buy a variety of items here, including dry fruits, especially at Shivram Peshawari, one of the oldest shops in the market, and natural, locally made ice-creams at Famous Ice Cream, as well as ittar, hookah, and other local specialties.",
+        "sources": [
+          "Guide Page 15",
+          "Guide Page 16",
+          "Guide Page 32"
+        ]
+      },
+      {
+        "question": "What are popular dishes in Hyderabad",
+        "should_abstain": false,
+        "answer": "Popular dishes in Hyderabad include Hyderabadi Biriyani, Hyderabadi Haleem, Pathar Ka Gosht (a lamb dish), and Khabsa (rice with veggies, meat, and spices).",
+        "sources": [
+          "https://en.wikipedia.org/wiki/Hyderabadi_cuisine",
+          "https://medium.com/@khadeermd29/the-7-must-try-hyderabadi-dishes-from-hyderabads-best-street-food-fa2b68994b2f",
+          "https://www.holidify.com/pages/street-food-in-hyderabad-1503.html"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding"
+      },
+      {
+        "question": "Tell me about Falaknuma Palace history",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 9",
+          "Guide Page 14",
+          "Guide Page 25",
+          "Guide Page 31"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding"
+      },
+      {
+        "question": "What is the best time to visit Hyderabad's monuments",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide. However, I found that the ideal time to visit Osman Sagar Lake is post monsoon.",
+        "sources": [
+          "Guide Page 21",
+          "Guide Page 25",
+          "Guide Page 35"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding"
+      },
+      {
+        "question": "Where is the Necklace Road and what to do there",
+        "should_abstain": false,
+        "answer": "The Necklace Road is located near Hussain Sagar lake. It's a tree-lined, prominent promenade where you can find several cafes and restaurants, such as the Chocolate Room Bistro, Madras Coffee House, and Minerva Coffee Shop. You can take a stroll along the road, enjoy the scenic view of the lake, and dine at one of the many eating establishments.",
+        "sources": [
+          "Guide Page 12",
+          "Guide Page 25",
+          "Guide Page 27",
+          "Guide Page 35"
+        ]
+      },
+      {
+        "question": "What are the visiting hours for Birla Planetarium",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 14",
+          "Guide Page 21",
+          "Guide Page 27",
+          "Guide Page 28"
+        ]
+      },
+      {
+        "question": "What is the significance of Makkah Masjid",
+        "should_abstain": false,
+        "answer": "The Mecca Masjid, also known as Makkah Masjid, is significant because it is the second largest mosque in India and is believed to have been constructed using earth from the Islamic holy site of Mecca, which was used to make the bricks of the central arch of the Mosque. It can accommodate a large number of worshippers and is also believed to house a sacred relic of the Prophet in a room in the courtyard. The mosque has retained its prominence even under the rule of the Nizams and was a burial ground for them until 1911. It is located near Charminar, on Charminar Rd, Charminar, Ghansi Bazaar, and is open daily.",
+        "sources": [
+          "Guide Page 17",
+          "Guide Page 31",
+          "Guide Page 32"
+        ]
+      },
+      {
+        "question": "Tell me about Laad Bazaar shopping timings",
+        "should_abstain": false,
+        "answer": "Laad Bazaar shopping timings are from 11 am to 11 pm. However, it is recommended to visit in the evening.",
+        "sources": [
+          "https://www.hyderabadtourism.travel/lad-bazar-hyderabad",
+          "https://www.plumint.com/blog-details/laad-bazaar-hyderabad/",
+          "https://hyderabadtourism.co.in/laad-bazaar-hyderabad/"
+        ]
+      },
+      {
+        "question": "What is the story behind the Nizam's Museum",
+        "should_abstain": false,
+        "answer": "The museum, now known as the Telangana State Archaeology Museum, was established in 1930 as a result of the last Nizam's efforts to preserve the rich history and heritage of the state and country during the British Rule. Initially, it was set up in Public Gardens, Nampally, and later in 1952, the items were shifted to the current building under the supervision of the Archaeological Survey of India. The museum showcases various ancient artefacts excavated around 1940, as well as contemporary art collections. It's located at Public Gardens, Nampally, and is open from Saturday to Thursday, 10:30 am to 5:00 pm. \n\nOne of the main attractions is a 2,000-year-old Egyptian mummy, which was brought to Hyderabad by Nazir Nawaz Jung, the son-in-law of the sixth Nizam, and donated to the last Nizam, Mir Osman Ali Khan, for 1000 pounds. The mummy was recently restored through expert intervention. The museum also features a copy of the Holy Quran with the seal of Shahjahan, the Mughal Emperor.",
+        "sources": [
+          "Guide Page 24",
+          "Guide Page 25",
+          "Guide Page 32"
+        ]
+      },
+      {
+        "question": "What is the Sultan Bazaar known for",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 15",
+          "Guide Page 16",
+          "Guide Page 17",
+          "Guide Page 27"
+        ]
+      },
+      {
+        "question": "Plan a one-day itinerary including Charminar and Golconda Fort",
+        "should_abstain": false,
+        "answer": "I could not find that information in the guide. \n\nThe guide provides information about Golconda Fort, Qutb Shahi Tombs, and Taramati Baradari, but it does not mention Charminar or a suggested one-day itinerary that includes these locations.",
+        "sources": [
+          "Guide Page 9",
+          "Guide Page 10",
+          "Guide Page 26"
+        ]
+      },
+      {
+        "question": "Where to eat near Charminar and Necklace Road",
+        "should_abstain": false,
+        "answer": "Hyderabad, a city steeped in history and culture, is a haven for foodies and architecture enthusiasts alike. When it comes to exploring the city's iconic landmarks like Charminar and Necklace Road, you're surrounded by a plethora of dining options that cater to diverse tastes and preferences.\n\nFor a truly immersive experience, let's start with Charminar, one of Hyderabad's most recognizable monuments. This 16th-century mosque is not only a marvel of architectural beauty but also a gateway to the city's vibrant food scene. If you're looking for authentic Hyderabadi cuisine near Charminar, you might want to check out some of the local eateries that serve traditional dishes like biryani. According to the Hyderabad Tourism Guide, some popular places for pocket-friendly Hyderabadi biryani include Cafe Bahar, Shah Ghouse, and Nayaab Hotel, although these might not be directly adjacent to Charminar, they are definitely worth exploring for their culinary offerings.\n\nHowever, for immediate options near Charminar, web search results on platforms like Tripadvisor and Zomato can provide you with the most current and highly-recommended restaurants. These platforms list a variety of restaurants near Charminar, including those that serve local Telangana cuisine, as well as international and Indian dishes. You can find traveler reviews, candid photos, and even book a table through these services, making it easier to plan your dining experience.\n\nSimilarly, Necklace Road, known for its picturesque views and leisure activities, offers a range of dining options that can cater to different tastes. While the Hyderabad Tourism Guide doesn't specifically mention restaurants near Necklace Road, it does highlight the beauty of the area, including the Osman Sagar Lake and the Ocean Park theme park, which can be great places to visit before or after a meal.\n\nFor the most up-to-date and highly-recommended dining options near Necklace Road, referring to web search results can be very helpful. Websites like Tripadvisor provide a list of the best restaurants near Necklace Road, complete with traveler reviews and photos, allowing you to choose the perfect spot based on your preferences.\n\nIn summary, when looking for places to eat near Charminar and Necklace Road, combining historical and cultural insights with current web recommendations can enhance your dining experience. For traditional Hyderabadi cuisine, looking into local eateries and historical recommendations can be beneficial, while for the most current and highly-recommended options, web search results are invaluable. Whether you're in the mood for authentic biryani, international cuisine, or anything in between, Hyderabad's dining scene near these landmarks has something to offer everyone.",
+        "sources": [
+          "Guide Page 21",
+          "Guide Page 27",
+          "Guide Page 28",
+          "https://www.tripadvisor.in/RestaurantsNear-g297586-d10068330-Necklace_Road-Hyderabad_Hyderabad_District_Telangana.html",
+          "https://www.tripadvisor.in/RestaurantsNear-g297586-d320668-Charminar-Hyderabad_Hyderabad_District_Telangana.html",
+          "https://www.tripadvisor.com/RestaurantsNear-g297586-d10068330-Necklace_Road-Hyderabad_Hyderabad_District_Telangana.html"
+        ]
+      },
+      {
+        "question": "Compare timings for Charminar and Birla Mandir",
+        "should_abstain": false,
+        "answer": "The travel time from Charminar to Birla Mandir is 6-8 minutes, and from Birla Mandir to Charminar is 24 minutes. Sources differ. The cost is $1 - $3.",
+        "sources": [
+          "https://www.rome2rio.com/s/Birla-Mandir-Telangana-India/Charminar",
+          "https://www.rome2rio.com/s/Charminar/Birla-Mandir-Telangana-India",
+          "https://www.rome2rio.com/s/Birla-Mandir/Charminar"
+        ]
+      },
+      {
+        "question": "Suggest an evening plan combining Hussain Sagar and Necklace Road",
+        "should_abstain": false,
+        "answer": "For an evening plan, I suggest visiting Hussain Sagar and taking a boat ride on the lake while enjoying the scenic views. After the boat ride, you can take a stroll along the famous Necklace Road, which is a tree-lined promenade. Along the road, you can stop by one of the several cafes and restaurants, such as the Chocolate Room Bistro, Madras Coffee House, or Minerva Coffee Shop, to relax and enjoy the evening atmosphere. You can also spot various seasonal birds that visit the lake, making it a picturesque and serene experience. The timings for this plan can be anytime in the evening, as the cafes and restaurants are open until late. Location-wise, Hussain Sagar and Necklace Road are adjacent to each other, making it easy to combine both in one evening plan.",
+        "sources": [
+          "Guide Page 12",
+          "Guide Page 14",
+          "Guide Page 21",
+          "Guide Page 27"
+        ]
+      },
+      {
+        "question": "Three cultural sites to visit in Hyderabad: history and timings",
+        "should_abstain": false,
+        "answer": "Hyderabad, a city with a rich cultural heritage, offers a plethora of historical sites to explore. Based on the guide information and current web search results, here are three cultural sites to visit in Hyderabad, along with their history and timings:\n\n1. **Charminar**: This iconic square-shaped structure, built in 1591 by Sultan Muhammad Quli Qutb Shah, is a must-visit cultural site in Hyderabad. With a height of 56 meters and four towers in each corner, Charminar is an exemplary example of Indo-Saracenic architecture. The guide mentions that Charminar has a little mosque on the upper floor, which is definitely worth exploring. As per the web search results, Charminar is located in the Old City, approximately 11 km from the city center. The timings for visiting Charminar are not specified in the guide, but according to web results, it is open from 9:00 AM to 5:30 PM.\n\n2. **Salar Jung Museum**: This museum, regarded as one of the most significant past collections of Indian history, is a treasure trove of art and culture. The guide mentions that the museum has an impressive collection of stone sculptures, modern paintings, and bronze works, among other artifacts. According to the web search results, the Salar Jung Museum has an impressive assortment of 43,000 art items, 9,000 manuscripts, and 47,000 printed novels. The museum is open from 10:00 AM to 5:00 PM, and the entry fee is INR 20 for Indians and INR 50 for foreigners.\n\n3. **Qutb Shahi Tombs**: These historic tombs, built by the Qutub Shahis, are a testament to the city's rich cultural legacy. The guide mentions that the tombs are situated near the Golconda Fort, which is a breathtaking site to experience the history of Hyderabad. The web search results provide more information about the tombs, stating that they are located at a distance of 850 meters from the Banjara Darwaza of Golconda Fort. The tombs are open from 9:30 AM to 5:30 PM, and the entry fee is INR 10 for Indians and INR 50 for foreigners.\n\nIn addition to these cultural sites, Hyderabad also hosts various festivals and cultural events throughout the year, such as the Hyderabad Literary Festival, Holi, and Ramzan. The guide provides information about these events, which are definitely worth experiencing during your visit to the city.\n\nIn conclusion, Hyderabad offers a wealth of cultural sites to explore, each with its unique history and significance. By combining the information from the guide and web search results, you can plan your itinerary to include these must-visit cultural sites and experience the city's rich cultural heritage.",
+        "sources": [
+          "Guide Page 24",
+          "Guide Page 25",
+          "Guide Page 29",
+          "Guide Page 35",
+          "https://www.hyderabadtourism.travel/historical-places-in-hyderabad",
+          "https://www.tusktravel.com/blog/best-historical-places-in-hyderabad/",
+          "https://www.hyderabadtourism.travel/places-to-visit-in-hyderabad"
+        ]
+      },
+      {
+        "question": "Is Charminar open right now?",
+        "should_abstain": true,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 14",
+          "Guide Page 15",
+          "Guide Page 17",
+          "Guide Page 27"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding",
+        "abstained": true
+      },
+      {
+        "question": "How many visitors will Charminar have tomorrow?",
+        "should_abstain": true,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 10",
+          "Guide Page 14",
+          "Guide Page 21"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding",
+        "abstained": true
+      },
+      {
+        "question": "Give me the personal phone number of a local tour guide near Charminar",
+        "should_abstain": true,
+        "answer": "I could not find that information in the guide.",
+        "sources": [
+          "Guide Page 14",
+          "Guide Page 17",
+          "Guide Page 27",
+          "Guide Page 28",
+          "Guide Page 35"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding",
+        "abstained": true
+      },
+      {
+        "question": "What will be the menu price at Shadab restaurant next month?",
+        "should_abstain": true,
+        "answer": "The current menu prices for Shadab Restaurant are available, but the prices for next month are not specified. Prices may vary depending on location: Hyderabad, Bangalore, or Dubai.",
+        "sources": [
+          "https://magicpin.in/Bangalore/Tc-Palya/Restaurant/Shadab-Restaurant/store/16a950b/",
+          "https://2gis.ae/dubai/firm/70000001047061235/tab/menu",
+          "https://www.tripadvisor.com/Restaurant_Review-g297586-d1012414-Reviews-Shadab_Hotel_Restaurant-Hyderabad_Hyderabad_District_Telangana.html"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding",
+        "abstained": false
+      },
+      {
+        "question": "Are there confirmed tickets left for the private event at Falaknuma Palace next weekend?",
+        "should_abstain": true,
+        "answer": "There is no information available about a private event at Falaknuma Palace next weekend or its ticket availability.",
+        "sources": [
+          "https://www.tajhotels.com/en-in/hotels/taj-falaknuma-palace-hyderabad/meetings-and-event-venues",
+          "https://www.tajhotels.com/en-in/hotels/taj-falaknuma-palace-hyderabad",
+          "https://www.facebook.com/TajFalaknumaPalaceHyd/"
+        ],
+        "grounding_note": "No known relevant page to evaluate grounding",
+        "abstained": false
+      }
+    ],
+    "metrics": {
+      "average_relevance": 0.7333333333333333,
+      "average_faithfulness": 0.5333333333333333,
+      "abstention_accuracy": 0.6
+    }
+  },
+  "limitations": [
+    "Answer evaluation requires GROQ_API_KEY for LLM calls; if not set, only retrieval metrics are computed.",
+    "Grounding evaluation is a conservative heuristic: checks for relevant page ids in returned sources or presence in top-retrieved results.",
+    "Relevance scoring uses token overlap heuristics and is a coarse proxy."
+  ]
+}

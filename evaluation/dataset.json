@@ -1,0 +1,296 @@
+[
+  {
+    "question": "Tell me about Charminar",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      10,
+      13
+    ],
+    "note": ""
+  },
+  {
+    "question": "What are the Charminar timings",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      13,
+      15,
+      17
+    ],
+    "note": ""
+  },
+  {
+    "question": "History of Golconda Fort",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      10,
+      11
+    ],
+    "note": ""
+  },
+  {
+    "question": "When is Ramoji Film City open",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      10,
+      11
+    ],
+    "note": ""
+  },
+  {
+    "question": "What is the entry fee for Salar Jung Museum",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      24,
+      25,
+      32
+    ],
+    "note": ""
+  },
+  {
+    "question": "Describe Chowmahalla Palace",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      13,
+      26
+    ],
+    "note": ""
+  },
+  {
+    "question": "What can I buy at Laad Bazaar",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      13,
+      15,
+      16
+    ],
+    "note": ""
+  },
+  {
+    "question": "Tell me about Nehru Zoological Park",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      10,
+      11
+    ],
+    "note": ""
+  },
+  {
+    "question": "What are the highlights of Birla Mandir",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "No reliable page mapping for evaluation target"
+  },
+  {
+    "question": "What is special about the Qutb Shahi Tombs",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "No reliable page mapping for evaluation target"
+  },
+  {
+    "question": "Where is Moazzam Jahi Market and what to buy",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      11,
+      13,
+      15
+    ],
+    "note": ""
+  },
+  {
+    "question": "What are popular dishes in Hyderabad",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "No reliable page mapping for evaluation target"
+  },
+  {
+    "question": "Tell me about Falaknuma Palace history",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "No reliable page mapping for evaluation target"
+  },
+  {
+    "question": "What is the best time to visit Hyderabad's monuments",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "No reliable page mapping for evaluation target"
+  },
+  {
+    "question": "Where is the Necklace Road and what to do there",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      11,
+      12
+    ],
+    "note": ""
+  },
+  {
+    "question": "What are the visiting hours for Birla Planetarium",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      11,
+      14
+    ],
+    "note": ""
+  },
+  {
+    "question": "What is the significance of Makkah Masjid",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      17,
+      31
+    ],
+    "note": ""
+  },
+  {
+    "question": "Tell me about Laad Bazaar shopping timings",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      10,
+      13
+    ],
+    "note": ""
+  },
+  {
+    "question": "What is the story behind the Nizam's Museum",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      10,
+      14,
+      24
+    ],
+    "note": ""
+  },
+  {
+    "question": "What is the Sultan Bazaar known for",
+    "should_abstain": false,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      13,
+      15
+    ],
+    "note": ""
+  },
+  {
+    "question": "Plan a one-day itinerary including Charminar and Golconda Fort",
+    "should_abstain": false,
+    "multi_context": true,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      10,
+      11
+    ],
+    "note": ""
+  },
+  {
+    "question": "Where to eat near Charminar and Necklace Road",
+    "should_abstain": false,
+    "multi_context": true,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      11,
+      12
+    ],
+    "note": ""
+  },
+  {
+    "question": "Compare timings for Charminar and Birla Mandir",
+    "should_abstain": false,
+    "multi_context": true,
+    "expected_facts": [],
+    "relevant_pages": [
+      11,
+      13,
+      15
+    ],
+    "note": ""
+  },
+  {
+    "question": "Suggest an evening plan combining Hussain Sagar and Necklace Road",
+    "should_abstain": false,
+    "multi_context": true,
+    "expected_facts": [],
+    "relevant_pages": [
+      9,
+      11,
+      12
+    ],
+    "note": ""
+  },
+  {
+    "question": "Three cultural sites to visit in Hyderabad: history and timings",
+    "should_abstain": false,
+    "multi_context": true,
+    "expected_facts": [],
+    "relevant_pages": [
+      10,
+      11,
+      13
+    ],
+    "note": ""
+  },
+  {
+    "question": "Is Charminar open right now?",
+    "should_abstain": true,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "Marked unsupported due to live/personal/private/future prediction intent"
+  },
+  {
+    "question": "How many visitors will Charminar have tomorrow?",
+    "should_abstain": true,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "Marked unsupported due to live/personal/private/future prediction intent"
+  },
+  {
+    "question": "Give me the personal phone number of a local tour guide near Charminar",
+    "should_abstain": true,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "Marked unsupported due to personal/private information request"
+  },
+  {
+    "question": "What will be the menu price at Shadab restaurant next month?",
+    "should_abstain": true,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "Marked unsupported due to live/personal/private/future prediction intent"
+  },
+  {
+    "question": "Are there confirmed tickets left for the private event at Falaknuma Palace next weekend?",
+    "should_abstain": true,
+    "expected_facts": [],
+    "relevant_pages": [],
+    "note": "Marked unsupported due to live/personal/private/future prediction intent"
+  }
+]
