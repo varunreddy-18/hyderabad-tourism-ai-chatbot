@@ -31,13 +31,14 @@ class Retriever:
     def search(self, query, top_k=5):
         """
         Search for relevant chunks using semantic similarity.
-        
-        Args:
-            query: Search query text
-            top_k: Number of results to return
-            
-        Returns:
-            List of relevant chunks with metadata and distance scores
+
+        Returns a list of result dicts that include:
+          - chunk metadata (page, text, chunk_id)
+          - distance: raw faiss L2 distance (lower is better)
+          - similarity: converted similarity score in (0,1], computed as 1/(1+distance)
+          - rank: 1-based rank
+
+        This keeps the external interface but exposes distances/similarities for debugging.
         """
         # Generate query embedding
         query_embedding = self.model.encode(
@@ -52,7 +53,11 @@ class Retriever:
         results = []
         for i, idx in enumerate(indices[0]):
             result = self.metadata[idx].copy()
-            result["distance"] = float(distances[0][i])
+            dist = float(distances[0][i])
+            # conservative similarity transform from L2 distance to 0..1 (higher is better)
+            sim = 1.0 / (1.0 + dist) if dist is not None else 0.0
+            result["distance"] = dist
+            result["similarity"] = float(sim)
             result["rank"] = i + 1
             results.append(result)
 

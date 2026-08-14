@@ -57,9 +57,27 @@
                         <!-- AUTO IMAGE DISPLAY -->
                         <div class="message-image-container" id="img-{{ loop.index }}"></div>
                         
-                        <div class="ai-message-bubble">
+                        {% set is_error = 'Error:' in (item.assistant or '') %}
+                        <div class="ai-message-bubble {% if is_error %}error-bubble{% endif %}">
                             {{ item.assistant }}
                         </div>
+
+                        {# Sources: display as links if URL else tags #}
+                        {% if item.sources %}
+                        <div class="sources">
+                            <h4>Sources</h4>
+                            <div class="source-list">
+                                {% for s in item.sources %}
+                                    {% if s.startswith('http') %}
+                                        <a class="source-tag" href="{{ s }}" target="_blank" rel="noopener noreferrer">{{ s }}</a>
+                                    {% else %}
+                                        <span class="source-tag">{{ s }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
                     </div>
 
                 {% endfor %}
@@ -71,6 +89,22 @@
                     <div class="welcome-icon">🏛️</div>
                     <h2 class="welcome-title">Welcome to Hyderabad Heritage AI</h2>
                     <p class="welcome-text">Ask me about Charminar, Golconda Fort, Hyderabad food, history, museums, travel itineraries and more!</p>
+
+                    <div class="cards" style="max-width:760px;">
+                        <div class="card example-card" data-query="Charminar timings today">
+                            <img src="{{ url_for('static', filename='images/charminar.jpg') }}" alt="Charminar">
+                            <p>Charminar timings today</p>
+                        </div>
+                        <div class="card example-card" data-query="Best biryani places in Hyderabad">
+                            <img src="{{ url_for('static', filename='images/biryani.jpg') }}" alt="Biryani">
+                            <p>Best biryani places in Hyderabad</p>
+                        </div>
+                        <div class="card example-card" data-query="Plan a one day Hyderabad itinerary">
+                            <img src="{{ url_for('static', filename='images/golconda.jpg') }}" alt="Golconda">
+                            <p>Plan a one day Hyderabad itinerary</p>
+                        </div>
+                    </div>
+
                 </div>
 
             {% endif %}
@@ -82,12 +116,12 @@
             <div class="input-container">
                 <input
                     type="text"
-                    name="question"
+                                    name="query"
                     placeholder="Ask anything about Hyderabad..."
                     class="message-input"
                     id="questionInput"
                     required>
-                <button type="submit" class="send-btn" title="Send message">
+                                <button type="submit" class="send-btn" id="sendBtn" title="Send message">
                     <span class="send-icon">→</span>
                 </button>
             </div>
@@ -140,13 +174,38 @@ document.addEventListener('DOMContentLoaded', function() {
     displayRelevantImages();
     scrollToBottom();
 
-    // FORM SUBMISSION
     const form = document.getElementById('chatForm');
-    form.addEventListener('submit', function() {
-        const input = document.getElementById('questionInput');
-        if (input.value.trim()) {
-            input.value = '';
+    const input = document.getElementById('questionInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    // Form submit: show loading indicator and disable controls
+    form.addEventListener('submit', function(e) {
+        const value = input.value || '';
+        if (!value.trim()) {
+            // prevent empty submissions
+            e.preventDefault();
+            return;
         }
+
+        // disable input and button to avoid duplicates
+        input.disabled = true;
+        sendBtn.disabled = true;
+        sendBtn.classList.add('disabled');
+
+        // show spinner in button
+        sendBtn.innerHTML = '<span class="spinner"></span>';
+        // allow form to submit (full page reload)
+    });
+
+    // Example cards: set query and submit
+    const cards = document.querySelectorAll('.example-card');
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const q = card.getAttribute('data-query') || '';
+            input.value = q;
+            // visually show selection then submit
+            form.submit();
+        });
     });
 });
 
