@@ -1,114 +1,144 @@
-# Hyderabad Tourism AI Chatbot
+﻿# Hyderabad Tourism AI — RAG & Hybrid Search Assistant
 
-An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (RAG)**, **Live Web Search**, and **LangChain-powered orchestration** to provide accurate, context-aware, and up-to-date information about Hyderabad's history, attractions, food, culture, and travel planning.
+An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (RAG)**, **Live Web Search**, and **LangChain-powered orchestration** to provide context-aware and up-to-date information about Hyderabad's history, attractions, food, culture, and travel planning.
 
 ---
 
 ## Features
 
-* 🔍 Semantic search using FAISS and Sentence Transformers
-* 🌐 Live web search for current information
-* 🔄 Hybrid retrieval (Knowledge Base + Web Search)
-* 🧠 Intelligent query routing (RAG / Web / Hybrid)
-* ⛓️ LangChain-powered prompt and LLM orchestration
-* 🤖 AI-generated responses using Llama 3.3 70B via Groq
-* 🏰 Hyderabad tourism, culture, food, and travel guidance
-* 💬 Interactive Flask-based chat interface
-* 🖼️ Dynamic landmark image support
-* 🐳 Docker containerization for deployment
+- Semantic search using FAISS and Sentence Transformers
+- Live web search for current information
+- Hybrid retrieval combining the knowledge base and web search
+- Intelligent query routing between RAG, Web, and Hybrid modes
+- LangChain-powered prompt and LLM orchestration
+- AI-generated responses using Llama 3.3 70B via Groq
+- Hyderabad tourism, culture, food, and travel guidance
+- Interactive Flask-based chat interface
+- Dynamic landmark image support
+- Lightweight RAG evaluation
+- Docker containerization
 
 ---
 
 ## System Architecture
 
 ```text
-                👤 User
-                   │
-                   ▼
-      ┌─────────────────────────┐
-      │  Flask Web Interface    │
-      │ (HTML • CSS • JS)       │
-      └───────────┬─────────────┘
-                  │
-                  ▼
-      ┌─────────────────────────┐
-      │      Query Router       │
-      └───────┬─────┬───────────┘
-              │     │
-     ┌────────┘     └────────┐
-     ▼                       ▼
-┌─────────┐           ┌─────────┐
-│   RAG   │           │   Web   │
-│ Search  │           │ Search  │
-└────┬────┘           └────┬────┘
-     │                     │
-     ▼                     ▼
-┌─────────┐         ┌───────────┐
-│  FAISS  │         │ Live Web  │
-│Vector DB│         │  Results  │
-└────┬────┘         └─────┬─────┘
-     └────────┬───────────┘
-              │
-              ▼
-     ┌───────────────────┐
-     │  Context Builder  │
-     │ (RAG / Web / Both)│
-     └─────────┬─────────┘
-               │
-               ▼
-     ┌───────────────────┐
-     │ LangChain + Groq  │
-     │   Llama 3.3 70B   │
-     └─────────┬─────────┘
-               │
-               ▼
-         🤖 AI Response
+                User
+                  |
+                  v
+       +----------------------+
+       |  Flask Web Interface |
+       +----------+-----------+
+                  |
+                  v
+       +----------------------+
+       |     Query Router     |
+       +----+------------+----+
+            |            |
+            v            v
+       +---------+   +---------+
+       |   RAG   |   |   Web   |
+       | Search  |   | Search  |
+       +----+----+   +----+----+
+            |             |
+            v             v
+       +---------+   +-----------+
+       |  FAISS  |   | Live Web  |
+       | Vector  |   |  Results  |
+       |  Store  |   |           |
+       +----+----+   +-----+-----+
+             \             /
+              \           /
+               v         v
+          +-------------------+
+          |  Context Builder  |
+          +---------+---------+
+                    |
+                    v
+          +-------------------+
+          |  LangChain + Groq |
+          |   Llama 3.3 70B   |
+          +---------+---------+
+                    |
+                    v
+               AI Response
 ```
 
 ### Workflow
 
-* **RAG Mode** → Retrieves information from the Hyderabad tourism knowledge base using FAISS.
-* **Web Mode** → Fetches current information such as timings, restaurants, and travel updates.
-* **Hybrid Mode** → Combines both sources to provide richer and more accurate answers.
-* Retrieved information is converted into structured context.
-* LangChain manages prompt construction and LLM interactions.
-* Llama 3.3 (via Groq) generates the final response.
+- **RAG Mode** retrieves information from the Hyderabad tourism knowledge base using FAISS.
+- **Web Mode** retrieves current information through live web search.
+- **Hybrid Mode** combines knowledge-base retrieval with web search results.
+- Retrieved information is assembled into context for response generation.
+- LangChain manages prompt construction and LLM interaction.
+- Llama 3.3 via Groq generates the final response.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
-* HTML
-* CSS
-* JavaScript
+- HTML
+- CSS
+- JavaScript
 
 ### Backend
 
-* Flask
-* Python
+- Python
+- Flask
 
-### AI & Machine Learning
+### Retrieval and AI
 
-* FAISS Vector Database
-* Sentence Transformers
-* Retrieval-Augmented Generation (RAG)
-* Semantic Search
+- FAISS
+- Sentence Transformers
+- Retrieval-Augmented Generation
+- Semantic Search
 
-### LLM & Orchestration
+### LLM and Orchestration
 
-* LangChain
-* Groq API
-* Llama 3.3 70B Versatile
+- LangChain
+- Groq API
+- Llama 3.3 70B Versatile
 
 ### Search
 
-* DuckDuckGo Search (DDGS)
+- DuckDuckGo Search (DDGS)
 
 ### Deployment
 
-* Docker
+- Docker
+
+---
+
+## RAG Evaluation
+
+A lightweight evaluation system is included under `evaluation/` to measure retrieval and answer quality.
+
+### Evaluation Results
+
+| Metric                 | Result  |
+|------------------------|---------|
+| Evaluation Questions   | 30      |
+| Recall@3               | 65%     |
+| Recall@5               | 75%     |
+| Average Relevance      | 73.33%  |
+| Average Faithfulness   | 53.33%  |
+| Abstention Accuracy    | 60%     |
+
+The evaluation dataset contains answerable, multi-context, and unsupported questions.
+
+The evaluation implementation and results are available in:
+
+```text
+evaluation/
+├── dataset.json
+├── evaluate.py
+├── results.json
+└── report.md
+```
+
+The answer-quality scores are lightweight evaluator estimates and should not be treated as absolute ground truth.
 
 ---
 
@@ -116,30 +146,32 @@ An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (
 
 ```text
 hyderabad-tour-chatbot/
-│
 ├── app.py
 ├── Dockerfile
 ├── requirements.txt
-│
+├── README.md
 ├── app/
 │   ├── static/
 │   │   ├── css/
 │   │   └── images/
-│   │
 │   └── templates/
 │       └── index.html
-│
 ├── src/
 │   ├── rag/
 │   ├── retrieval/
 │   ├── llm/
 │   ├── search/
 │   └── utils/
-│
-└── data/
-    └── vectorstore/
-        ├── faiss_index
-        └── metadata.pkl
+├── data/
+│   └── vectorstore/
+│       ├── faiss_index
+│       └── metadata.pkl
+├── evaluation/
+│   ├── dataset.json
+│   ├── evaluate.py
+│   ├── results.json
+│   └── report.md
+└── tests/
 ```
 
 ---
@@ -148,15 +180,10 @@ hyderabad-tour-chatbot/
 
 ```text
 Tell me about Golconda Fort
-
 Charminar timings today
-
 Best food places near Charminar
-
 Plan a day around Hyderabad
-
 Famous dishes other than Biryani
-
 Best places to visit in Hyderabad with family
 ```
 
@@ -167,8 +194,8 @@ Best places to visit in Hyderabad with family
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/hyderabad-tour-chatbot.git
-cd hyderabad-tour-chatbot
+git clone https://github.com/varunreddy-18/hyderabad-tourism-ai-chatbot.git
+cd hyderabad-tourism-ai-chatbot
 ```
 
 ### Create Virtual Environment
@@ -179,13 +206,13 @@ python -m venv venv
 
 ### Activate Environment
 
-**Windows**
+#### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-**Linux / Mac**
+#### Linux / macOS
 
 ```bash
 source venv/bin/activate
@@ -198,8 +225,6 @@ pip install -r requirements.txt
 ```
 
 ### Configure Environment Variables
-
-Create a `.env` file:
 
 ```env
 GROQ_API_KEY=your_api_key_here
@@ -219,47 +244,48 @@ http://localhost:5000
 
 ---
 
-## 🐳 Docker Setup
+## Docker Setup
 
 ### Build Image
 
 ```bash
-docker build -t hyderabad-tour-chatbot .
+docker build -t hyderabad-tourism-ai .
 ```
 
 ### Run Container
 
 ```bash
-docker run -p 5000:5000 hyderabad-tour-chatbot
+docker run -p 5000:5000 -e GROQ_API_KEY=your_api_key_here hyderabad-tourism-ai
 ```
 
 ---
 
 ## Future Improvements
 
-* Conversation memory
-* Google Maps integration
-* Weather integration
-* Source citations in UI
-* Multilingual support (English, Telugu, Hindi)
-* Personalized itinerary generation
-* Agentic tool selection
+- Conversation memory
+- Google Maps integration
+- Weather integration
+- Source citations in the UI
+- Multilingual support
+- Personalized itinerary generation
+- Improved RAG evaluation
+- Production deployment
 
 ---
 
 ## Key Concepts Demonstrated
 
-* Retrieval-Augmented Generation (RAG)
-* Vector Databases (FAISS)
-* Semantic Search
-* LangChain
-* Prompt Engineering
-* Hybrid Retrieval Systems
-* LLM Integration
-* Query Routing
-* Docker Containerization
-* Flask Application Development
-* AI System Design
+- Retrieval-Augmented Generation (RAG)
+- Vector Search
+- Semantic Search
+- Hybrid Retrieval
+- Query Routing
+- LangChain
+- LLM Integration
+- Prompt Engineering
+- RAG Evaluation
+- Flask Application Development
+- Docker Containerization
+- AI System Design
 
----
 
