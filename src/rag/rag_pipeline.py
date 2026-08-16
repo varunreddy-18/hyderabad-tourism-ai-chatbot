@@ -1,4 +1,5 @@
 import logging
+import re
 
 from src.llm.langchain_llm import LangChainLLM
 from src.retrieval.retriever import Retriever
@@ -27,7 +28,7 @@ class RAGPipeline:
         # noticeably higher than this. Tune if you have empirical distributions.
         self.MIN_RAG_SIMILARITY = 0.04
 
-        print("RAG Pipeline Ready ✅")
+        print("RAG Pipeline Ready")
 
     def _is_greeting(self, query):
 
@@ -36,22 +37,28 @@ class RAGPipeline:
 
         normalized = query.strip().lower()
 
-        return any(
-            phrase in normalized
-            for phrase in [
-                "hi",
-                "hello",
-                "hey",
-                "good morning",
-                "good afternoon",
-                "good evening",
-                "thanks",
-                "thank you",
-                "greetings"
-            ]
-        )
+        # Match only whole words/phrases to avoid substrings like 'this' matching 'hi'
+        greetings = [
+            "hi",
+            "hello",
+            "hey",
+            "good morning",
+            "good afternoon",
+            "good evening",
+            "thanks",
+            "thank you",
+            "greetings"
+        ]
 
-    def ask(self, query):
+        for phrase in greetings:
+            # Use word boundaries for single words and phrase boundaries for multi-word phrases
+            pattern = r"\b" + re.escape(phrase) + r"\b"
+            if re.search(pattern, normalized):
+                return True
+
+        return False
+
+    def ask(self, query, conversation_history=None):
 
         if self._is_greeting(query):
             logger.debug("Greeting detected; skipping retrieval")
@@ -59,6 +66,29 @@ class RAGPipeline:
                 "answer": "Hello! I can help you explore Hyderabad's attractions, food, and travel tips. Ask me about places, timings, food, or itineraries.",
                 "sources": []
             }
+
+        # Prepare a compact recent conversation summary for context (last 5 exchanges -> up to 10 messages)
+        history_text = ""
+        try:
+            if conversation_history:
+                # conversation_history is expected as a list of {role, content}
+                msgs = conversation_history[-10:]
+                pieces = []
+                for m in msgs:
+                    role = (m.get('role') or '').title()
+                    content = (m.get('content') or '').strip()
+                    if content:
+                        # Keep each line short to conserve tokens
+                        pieces.append(f"{role}: {content}")
+                if pieces:
+                    history_text = (
+                        "RECENT CONVERSATION (for context only):\n" +
+                        "\n".join(pieces) +
+                        "\n\n" +
+                        "Note: Use this only to resolve references like 'there', 'this', 'another one'. Do not replace retrieval.\n\n"
+                    )
+        except Exception:
+            history_text = ""
 
         route = self.router.get_route(query)
 
@@ -149,12 +179,21 @@ Rules:
 - If the guide has no reliable information for the question, rely on the web results and state that guide context was not available.
 - Do not fabricate live facts such as current opening status, prices, or availability unless they are explicitly present in the provided results.
 - If neither source provides reliable information, clearly say you couldn't find grounded information and suggest trying a different query.
+
+Formatting:
+- Keep answers concise and easy to scan.
+- Use bullet points for lists and short headings when useful.
+- Use numbered lists for step-by-step itineraries or plans.
+- Avoid long paragraphs; prefer short bullets or numbered sections.
+- Preserve factual grounding and cite sources when relevant.
+- Return the answer formatted in Markdown using headings (##/###), **bold** for important names/times, numbered lists for itineraries, and bullet points for recommendations.
 """
 
+            effective_system_prompt = (history_text + system_prompt) if history_text else system_prompt
             answer = self.llm.generate(
                 context=combined_context,
                 query=query,
-                system_prompt=system_prompt
+                system_prompt=effective_system_prompt
             )
 
             pages = sorted(
@@ -249,13 +288,21 @@ Rules:
 - For general recommendations, offer suggestions conservatively and clearly label them as general advice when the results do not provide verified live details.{reco_hint}
 - Do not fabricate live facts such as current opening status, prices, or availability unless they are explicitly present in the provided results.
 - If the results are limited or do not include enough detail, say so clearly.
-- Keep answers concise.
+
+Formatting:
+- Keep answers concise and easy to scan.
+- Use bullet points for lists and short headings when useful.
+- Use numbered lists for step-by-step itineraries or plans.
+- Avoid long paragraphs; prefer short bullets or numbered sections.
+- Preserve factual grounding and cite sources when relevant.
+- Return the answer formatted in Markdown using headings (##/###), **bold** for important names/times, numbered lists for itineraries, and bullet points for recommendations.
 """
 
+            effective_system_prompt = (history_text + prompt) if history_text else prompt
             answer = self.llm.generate(
                 context=web_context,
                 query=query,
-                system_prompt=prompt
+                system_prompt=effective_system_prompt
             )
 
             return {
@@ -337,6 +384,14 @@ Rules:
 
 "I could not find that information in the guide."
 
+Formatting:
+- Keep answers concise and easy to scan.
+- Use bullet points for lists and short headings when useful.
+- Use numbered lists for step-by-step itineraries or plans.
+- Avoid long paragraphs; prefer short bullets or numbered sections.
+- Preserve factual grounding and cite sources when relevant.
+- Return the answer formatted in Markdown using headings (##/###), **bold** for important names/times, numbered lists for itineraries, and bullet points for recommendations.
+
 CONTEXT:
 
 {context}
@@ -347,10 +402,11 @@ QUESTION:
 ANSWER:
 """
 
+            effective_system_prompt = (history_text + prompt) if history_text else prompt
             answer = self.llm.generate(
                 context=context,
                 query=query,
-                system_prompt=prompt
+                system_prompt=effective_system_prompt
             )
 
             pages = sorted(list(set(doc["page"] for doc in docs)))

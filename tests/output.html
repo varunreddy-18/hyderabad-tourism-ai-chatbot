@@ -10,7 +10,7 @@
         rel="stylesheet">
 
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+          href="/static/css/style.css">
 </head>
 <body>
 
@@ -27,7 +27,7 @@
     <header class="app-header">
         <div class="header-wrapper">
             <div class="logo-section">
-                <img src="{{ url_for('static', filename='images/hyd_logo.jpg') }}" alt="Hyderabad Logo" class="app-logo">
+                <img src="/static/images/hyd_logo.jpg" alt="Hyderabad Logo" class="app-logo">
             </div>
             <div class="title-section">
                 <h1 class="app-title">Hyderabad Heritage AI Guide</h1>
@@ -42,39 +42,46 @@
         <!-- MESSAGES AREA -->
         <div class="messages-area" id="messagesArea">
 
-            {% if chat_history %}
-                {% for item in chat_history %}
+            
+                
 
                     <!-- USER MESSAGE -->
                     <div class="message-wrapper user-wrapper">
                         <div class="user-message-bubble">
-                            {{ item.user }}
+                            Test
                         </div>
                     </div>
 
                     <!-- AI MESSAGE -->
                     <div class="message-wrapper ai-wrapper">
                         <!-- AUTO IMAGE DISPLAY -->
-                        <div class="message-image-container" id="img-{{ loop.index }}"></div>
+                        <div class="message-image-container" id="img-1"></div>
                         
-                        <div class="ai-message-bubble {% if is_error %}error-bubble{% endif %}">
-                            <script type="text/markdown" class="assistant-md">{{ item.assistant|safe }}</script>
+                        <div class="ai-message-bubble ">
+                            <script type="text/markdown" class="assistant-md">## Introduction to Hyderabad
+
+Hyderabad is a city known for its history, culture, food, and architecture.
+
+### Places to Visit
+
+- **Charminar**
+- **Golconda Fort**
+- **Hussain Sagar Lake**
+- **Necklace Road**
+
+### General Advice
+
+1. Explore the Old City.
+2. Try Hyderabad Biryani.
+3. Visit major heritage attractions.
+</script>
                             <div class="assistant-html"></div>
                         </div>
                     </div>
 
-                {% endfor %}
+                
 
-            {% else %}
-
-                <!-- WELCOME MESSAGE -->
-                <div class="welcome-container">
-                    <div class="welcome-icon">🏛️</div>
-                    <h2 class="welcome-title">Welcome to Hyderabad Heritage AI</h2>
-                    <p class="welcome-text">Ask me about Charminar, Golconda Fort, Hyderabad food, history, museums, travel itineraries and more!</p>
-                </div>
-
-            {% endif %}
+            
 
         </div>
 
@@ -102,12 +109,12 @@
 
 // IMAGE MAPPING FOR AUTO-DISPLAY
 const imageMap = {
-    'charminar': '{{ url_for("static", filename="images/charminar.jpg") }}',
-    'golconda': '{{ url_for("static", filename="images/golconda.jpg") }}',
-    'food': '{{ url_for("static", filename="images/biryani.jpg") }}',
-    'biryani': '{{ url_for("static", filename="images/biryani.jpg") }}',
-    'restaurant': '{{ url_for("static", filename="images/biryani.jpg") }}',
-    'eat': '{{ url_for("static", filename="images/biryani.jpg") }}'
+    'charminar': '/static/images/charminar.jpg',
+    'golconda': '/static/images/golconda.jpg',
+    'food': '/static/images/biryani.jpg',
+    'biryani': '/static/images/biryani.jpg',
+    'restaurant': '/static/images/biryani.jpg',
+    'eat': '/static/images/biryani.jpg'
 };
 
 // DISPLAY IMAGES BASED ON USER QUERY
