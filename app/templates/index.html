@@ -59,8 +59,9 @@
                         
                         {% set is_error = 'Error:' in (item.assistant or '') %}
                         <div class="ai-message-bubble {% if is_error %}error-bubble{% endif %}">
-                            {{ item.assistant }}
-                        </div>
+                                                    <script type="text/markdown" class="assistant-md">{{ item.assistant|safe }}</script>
+                                                    <div class="assistant-html"></div>
+                                                </div>
 
                         {# Sources: display as links if URL else tags #}
                         {% if item.sources %}
@@ -169,9 +170,40 @@ function scrollToBottom() {
     }, 100);
 }
 
+// RENDER MARKDOWN FROM SCRIPT TAGS
+function renderMarkdown() {
+    const mdScripts = document.querySelectorAll('script.assistant-md');
+    mdScripts.forEach(s => {
+        const md = s.textContent || '';
+        let html = md;
+        try {
+            if (window.marked) {
+                html = marked.parse(md);
+            } else {
+                html = md.replace(/\n/g, '<br>');
+            }
+        } catch (e) {
+            html = md.replace(/\n/g, '<br>');
+        }
+        let clean = html;
+        try {
+            if (window.DOMPurify) {
+                clean = DOMPurify.sanitize(html);
+            }
+        } catch (e) {
+            clean = html;
+        }
+        const container = s.nextElementSibling;
+        if (container) {
+            container.innerHTML = clean;
+        }
+    });
+}
+
 // INITIALIZE ON PAGE LOAD
 document.addEventListener('DOMContentLoaded', function() {
     displayRelevantImages();
+    renderMarkdown();
     scrollToBottom();
 
     const form = document.getElementById('chatForm');
@@ -210,6 +242,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+
+<!-- Markdown rendering libraries (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
 
 </body>
 </html>

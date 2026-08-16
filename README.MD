@@ -287,5 +287,3 @@ docker run -p 5000:5000 -e GROQ_API_KEY=your_api_key_here hyderabad-tourism-ai
 - Flask Application Development
 - Docker Containerization
 - AI System Design
-
-
