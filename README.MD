@@ -13,7 +13,6 @@ An AI-powered tourism assistant that combines **Retrieval-Augmented Generation (
 - Conversation memory for maintaining context across recent messages
 - LangChain-powered prompt and LLM orchestration
 - AI-generated responses using Llama 3.3 70B via Groq
-- Hyderabad tourism, culture, food, and travel guidance
 - Interactive Flask-based chat interface
 - Dynamic landmark image support
 - Lightweight RAG evaluation
