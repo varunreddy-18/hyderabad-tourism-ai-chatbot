@@ -196,7 +196,7 @@ Best places to visit in Hyderabad with family
 
 ```bash
 git clone https://github.com/varunreddy-18/hyderabad-tourism-ai-chatbot.git
-cd hyderabad-tourism-ai-chatbot-main
+cd hyderabad-tourism-ai-chatbot
 ```
 
 ### Create Virtual Environment
@@ -263,6 +263,7 @@ docker run -p 5000:5000 -e GROQ_API_KEY=your_api_key_here hyderabad-tourism-ai
 
 ## Future Improvements
 
+- Conversation memory
 - Google Maps integration
 - Weather integration
 - Source citations in the UI
